@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Word Garden — English for Kelly</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Karla:wght@300..800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#151210; --paper:#FFFDF7; --paper2:#FFF3DC; --line:#ECE2D2; --mute:#8A8177;
+  --blue:#1B4FA0; --red:#E1442E; --yellow:#F4B912; --jade:#0E8A63; --pink:#E4739B;
+  --a:var(--blue);
+  --display:"Fraunces",Georgia,serif; --body:"Karla",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace; --vi:"Be Vietnam Pro","Karla",sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.6;-webkit-font-smoothing:antialiased}
+:focus-visible{outline:3px solid var(--a);outline-offset:3px}
+.c-red{--a:var(--red)} .c-yellow{--a:var(--yellow)} .c-jade{--a:var(--jade)}
+.c-pink{--a:var(--pink)} .c-blue{--a:var(--blue)}
+button{font-family:var(--mono);cursor:pointer}
+.vi{font-family:var(--vi)}
+
+/* ---------- welcome ---------- */
+#welcome{position:fixed;inset:0;z-index:500;background:var(--blue);color:#FFFDF7;display:grid;place-items:center;padding:24px;overflow:hidden}
+#welcome.gone{opacity:0;pointer-events:none;transition:opacity .5s ease}
+#welcome svg.cut{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.wbox{position:relative;max-width:620px;text-align:left}
+.whi{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--yellow)}
+.wbox h1{font-family:var(--display);font-weight:900;font-size:clamp(40px,10vw,78px);line-height:.95;margin:16px 0 0;letter-spacing:-.03em;font-variation-settings:"SOFT" 40,"WONK" 1}
+.wbox h1 em{font-style:normal;color:var(--yellow)}
+.wvi{font-family:var(--vi);font-size:20px;color:#CDDCF3;margin:18px 0 0;line-height:1.65}
+.wen{font-size:19px;color:#EAF0FA;margin:14px 0 0;max-width:46ch}
+.wlist{list-style:none;padding:0;margin:24px 0 0;display:grid;gap:10px}
+.wlist li{display:flex;gap:12px;align-items:flex-start;font-size:17px;color:#EAF0FA}
+.wlist b{color:var(--yellow);font-family:var(--mono);font-size:12px;letter-spacing:.1em;padding-top:4px}
+.wbtn{margin-top:30px;border:2px solid #FFFDF7;background:transparent;color:#FFFDF7;border-radius:999px;padding:14px 26px;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.wbtn:hover{background:#FFFDF7;color:var(--blue)}
+.wtimer{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:#7E9BCB;margin-top:16px;text-transform:uppercase}
+
+/* ---------- header ---------- */
+header{position:sticky;top:0;z-index:60;background:var(--paper);border-bottom:2px solid var(--ink)}
+.hbar{max-width:1080px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.logo{font-family:var(--display);font-weight:900;font-size:21px;letter-spacing:-.02em;font-variation-settings:"SOFT" 40,"WONK" 1}
+.logo span{color:var(--jade)}
+.hnav{display:flex;gap:6px;margin-left:auto;flex-wrap:wrap}
+.tab{border:2px solid var(--ink);background:transparent;border-radius:999px;padding:7px 14px;font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink)}
+.tab:hover,.tab.on{background:var(--ink);color:var(--paper)}
+.tab .badge{background:var(--red);color:#fff;border-radius:999px;padding:1px 6px;margin-left:6px;font-size:9px}
+.tab.on .badge{background:var(--yellow);color:var(--ink)}
+
+main{max-width:1080px;margin:0 auto;padding:30px 20px 110px}
+h2.big{font-family:var(--display);font-weight:900;font-size:clamp(28px,5vw,42px);line-height:1.02;margin:0 0 6px;letter-spacing:-.02em;font-variation-settings:"SOFT" 40,"WONK" 1}
+.sub{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;color:var(--mute);margin:0 0 28px}
+.lab{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.btn{border:2px solid var(--ink);background:transparent;border-radius:999px;padding:11px 20px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink)}
+.btn:hover{background:var(--ink);color:var(--paper)}
+.btn.solid{background:var(--a);border-color:var(--a);color:#fff}
+.c-yellow .btn.solid{color:var(--ink)}
+.btn.solid:hover{filter:brightness(.88)}
+.btn.sm{padding:7px 13px;font-size:10px}
+.btn:disabled{opacity:.35;cursor:default}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:30px}
+.stat{background:var(--paper2);border-radius:20px;padding:18px 20px}
+.stat b{display:block;font-family:var(--display);font-weight:900;font-size:34px;line-height:1.1;margin-top:2px;font-variation-settings:"SOFT" 40,"WONK" 1}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+.setcard{border:2px solid var(--ink);border-radius:22px;padding:20px}
+.setcard h3{font-family:var(--display);font-weight:900;font-size:21px;margin:10px 0 4px;line-height:1.1}
+.dot{width:16px;height:16px;border-radius:999px;background:var(--a);display:block}
+.mini{height:8px;border-radius:999px;background:var(--line);margin-top:14px;overflow:hidden}
+.mini i{display:block;height:100%;background:var(--a);width:0}
+.setmeta{font-family:var(--mono);font-size:10.5px;color:var(--mute);margin-top:8px}
+
+.stage{max-width:660px;margin:0 auto}
+.crumb{display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.progline{flex:1;height:8px;border-radius:999px;background:var(--line);overflow:hidden;min-width:110px}
+.progline i{display:block;height:100%;background:var(--a);width:0;transition:width .3s}
+.card{border:2px solid var(--ink);border-radius:28px;padding:32px 30px}
+.word{font-family:var(--display);font-weight:900;font-size:clamp(40px,9vw,62px);line-height:1.02;letter-spacing:-.03em;margin:8px 0 4px;font-variation-settings:"SOFT" 40,"WONK" 1}
+.pos{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;background:var(--a);color:#fff;border-radius:999px;padding:4px 11px}
+.c-yellow .pos{color:var(--ink)}
+.def{font-size:20px;margin:14px 0 0}
+.audio{display:inline-flex;gap:6px;vertical-align:middle;margin-left:10px}
+.ico{border:2px solid var(--a);color:var(--a);background:transparent;border-radius:999px;height:34px;min-width:34px;padding:0 11px;font-size:10px;font-weight:700;letter-spacing:.06em}
+.ico:hover{background:var(--a);color:#fff}
+.c-yellow .ico:hover{color:var(--ink)}
+.ico.sm{height:28px;min-width:28px;font-size:9px;padding:0 8px}
+.divider{height:2px;background:var(--line);margin:24px 0}
+.example{font-size:22px;line-height:1.45}
+.example em{font-style:normal;background:var(--a);color:#fff;padding:0 5px;border-radius:5px}
+.c-yellow .example em{color:var(--ink)}
+.trrow{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.trbtn{border:2px solid var(--line);background:transparent;border-radius:999px;padding:6px 15px;font-family:var(--vi);font-size:12px;font-weight:600;color:var(--mute)}
+.trbtn:hover{border-color:var(--ink);color:var(--ink)}
+.trbtn.on{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.tr{margin-top:12px;background:var(--paper2);border-radius:16px;padding:13px 18px;display:none;font-family:var(--vi);font-size:19px;line-height:1.7}
+.tr.on{display:block}
+.rate{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:24px}
+.rate button{border-radius:16px;border:2px solid var(--ink);background:transparent;padding:14px 8px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);line-height:1.5}
+.rate button small{display:block;font-family:var(--vi);font-size:11px;color:var(--mute);letter-spacing:0;margin-top:4px;font-weight:400;text-transform:none}
+.rate button:nth-child(1):hover{background:var(--red);border-color:var(--red);color:#fff}
+.rate button:nth-child(2):hover{background:var(--jade);border-color:var(--jade);color:#fff}
+.rate button:nth-child(3):hover{background:var(--blue);border-color:var(--blue);color:#fff}
+.rate button:hover small{color:rgba(255,255,255,.8)}
+.navrow{margin-top:18px;justify-content:space-between;align-items:center}
+
+.qbox{border:2px solid var(--ink);border-radius:28px;padding:30px}
+.qtype{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--a);margin-bottom:14px}
+.qprompt{font-family:var(--display);font-weight:900;font-size:32px;line-height:1.15;margin:0 0 6px;font-variation-settings:"SOFT" 40,"WONK" 1}
+.qprompt.vi{font-family:var(--vi);font-size:30px;font-weight:700}
+.qhint{font-family:var(--mono);font-size:11.5px;color:var(--mute);margin-bottom:20px;line-height:1.8}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{border:2px solid var(--line);border-radius:16px;background:transparent;padding:13px 17px;text-align:left;font-family:var(--body);font-size:18px;color:var(--ink);line-height:1.4}
+.opt.vi{font-family:var(--vi)}
+.opt:hover{border-color:var(--a)}
+.opt.right{background:var(--jade);border-color:var(--jade);color:#fff}
+.opt.wrong{border-color:var(--red);color:#B0392A}
+.opt.locked{cursor:default}
+.typein{width:100%;border:2px solid var(--ink);border-radius:16px;background:var(--paper2);padding:14px 18px;font-family:var(--mono);font-size:20px;color:var(--ink)}
+.typein.right{background:var(--jade);color:#fff;border-color:var(--jade)}
+.typein.wrong{border-color:var(--red);background:#FFE0DB}
+.fb{font-family:var(--mono);font-size:12px;margin-top:16px;line-height:1.8;display:none;color:#6E665C}
+.fb.on{display:block}
+.fb b{color:var(--ink)}
+.fb .vi{font-family:var(--vi);font-size:15px}
+
+.scen{background:var(--paper2);border-radius:26px;padding:30px 30px 20px}
+.scen h3{font-family:var(--display);font-weight:900;font-size:28px;margin:0 0 16px;font-variation-settings:"SOFT" 40,"WONK" 1}
+.scen p{font-size:20px;line-height:1.75}
+.tgt{font-weight:700;color:var(--a);border-bottom:2px solid var(--a)}
+.c-yellow .tgt{color:#9A7100;border-color:#9A7100}
+.blank{border:none;border-bottom:2px solid var(--ink);background:var(--paper);font-family:var(--mono);font-size:16px;width:7.5em;padding:1px 6px;border-radius:6px 6px 0 0;color:var(--ink)}
+.blank.right{background:var(--jade);color:#fff;border-color:var(--jade)}
+.blank.wrong{background:#FFE0DB;border-color:var(--red)}
+
+.search{width:100%;border:2px solid var(--ink);border-radius:999px;padding:12px 20px;font-family:var(--vi);font-size:15px;background:transparent;color:var(--ink);margin-bottom:20px}
+.brow{border-bottom:2px solid var(--line);padding:14px 0;display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap}
+.brow .bw{font-family:var(--display);font-weight:900;font-size:22px;min-width:170px;font-variation-settings:"SOFT" 40,"WONK" 1}
+.brow .bd{flex:1;min-width:200px}
+.brow .vt{font-family:var(--vi);font-size:19px;min-width:170px;color:var(--jade);font-weight:600}
+
+.panel{border:2px solid var(--ink);border-radius:24px;padding:26px;margin-bottom:18px}
+select{width:100%;border:2px solid var(--ink);border-radius:16px;background:var(--paper2);padding:12px 16px;font-family:var(--mono);font-size:14px;color:var(--ink)}
+.slider{width:100%;accent-color:var(--red)}
+.done-note{background:var(--ink);color:var(--paper);border-radius:26px;padding:34px;text-align:center}
+.done-note .big{font-family:var(--display);font-weight:900;font-size:64px;color:var(--yellow);line-height:1;margin:8px 0;font-variation-settings:"SOFT" 40,"WONK" 1}
+.done-note .btn{border-color:var(--paper);color:var(--paper)}
+.done-note .btn:hover{background:var(--paper);color:var(--ink)}
+
+.pop{position:fixed;z-index:200;width:min(320px,calc(100vw - 20px));background:var(--paper);
+  border:2px solid var(--ink);border-radius:20px;padding:18px;box-shadow:6px 8px 0 rgba(21,18,16,.14)}
+.pop-x{position:absolute;top:10px;right:12px;border:none;background:transparent;color:var(--mute);font-size:13px}
+.pop-w{font-family:var(--display);font-weight:900;font-size:26px;line-height:1.1;padding-right:20px;font-variation-settings:"SOFT" 40,"WONK" 1}
+.pop-d{font-size:15.5px;line-height:1.5;margin-top:6px}
+.pop-tr{display:none;margin-top:10px;background:var(--paper2);border-radius:12px;padding:9px 13px;font-family:var(--vi);font-size:17px;line-height:1.65}
+.pop-tr.on{display:block}
+.pop-ex{margin-top:14px;padding-top:13px;border-top:2px solid var(--line);font-size:16px;line-height:1.5}
+
+@media(max-width:640px){
+  body{font-size:17px}
+  main{padding:24px 15px 90px}
+  .card,.qbox,.scen{padding:22px 18px;border-radius:22px}
+  .rate{grid-template-columns:1fr}
+  .wbox h1{font-size:38px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<div id="welcome">
+  <svg class="cut" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path d="M700 40c56 40 74 118 46 180-28 63-96 96-148 74-52-21-70-92-46-156C577 74 644 0 700 40z" fill="#F4B912" opacity=".9"/>
+    <path d="M92 470c50-30 118-8 140 46 22 53-10 112-66 126-56 13-110-22-116-76-5-49 6-72 42-96z" fill="#E1442E" opacity=".9"/>
+    <path d="M636 400c40 28 52 92 26 138-26 47-82 64-120 36-38-27-42-88-14-134 28-47 68-68 108-40z" fill="#0E8A63" opacity=".85"/>
+    <circle cx="150" cy="120" r="34" fill="#E4739B"/>
+    <circle cx="230" cy="86" r="14" fill="#FFFDF7" opacity=".7"/>
+  </svg>
+  <div class="wbox">
+    <div class="whi">Xin chào · Welcome</div>
+    <h1>Hello,<br><em>Kelly</em></h1>
+    <p class="wvi">Đây là nơi bạn học từ tiếng Anh cơ bản — mỗi từ có một câu ví dụ, phần dịch tiếng Việt, và nút nghe phát âm.</p>
+    <p class="wen">Simple words only. One word, one picture in your head, one short sentence you can really say.</p>
+    <ul class="wlist">
+      <li><b>01</b><span>Study a set of ten words, one card at a time.</span></li>
+      <li><b>02</b><span>Tap ▶ whenever you want to hear a word or a sentence.</span></li>
+      <li><b>03</b><span>Tap “Tiếng Việt” under anything to see the meaning.</span></li>
+      <li><b>04</b><span>Take the section test, then let the words come back tomorrow.</span></li>
+    </ul>
+    <button class="wbtn" id="startBtn">Bắt đầu · Let's start</button>
+    <div class="wtimer" id="wtimer"></div>
+  </div>
+</div>
+
+<header>
+  <div class="hbar">
+    <div class="logo">Word <span>Garden</span></div>
+    <nav class="hnav">
+      <button class="tab on" data-v="home">Sets</button>
+      <button class="tab" data-v="review">Review <span class="badge" id="dueBadge">0</span></button>
+      <button class="tab" data-v="test">Test</button>
+      <button class="tab" data-v="browse">All words</button>
+      <button class="tab" data-v="settings">Voice</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <p class="sub" style="margin:-6px 0 20px">Tip · tap any English word on this page to see its Vietnamese meaning.</p>
+  <div id="view"></div>
+</main>
+
+<script>
+window.PACK_VI = {
+id:"vi01",
+name:"Starter Pack — 100 Basic Words",
+sets:[
+{
+ id:"v1", title:"Everyday Verbs", color:"red",
+ words:[
+  {w:"need", p:"verb", d:"to must have something", vi:"cần", e:"I need a pen.", ev:"Tôi cần một cây bút."},
+  {w:"keep", p:"verb", d:"to have something and not give it away", vi:"giữ", e:"Please keep the key.", ev:"Hãy giữ chìa khóa."},
+  {w:"bring", p:"verb", d:"to take something to a place", vi:"mang theo", e:"Bring your book tomorrow.", ev:"Ngày mai hãy mang theo sách của bạn."},
+  {w:"choose", p:"verb", d:"to pick one thing from many", vi:"chọn", e:"You can choose one cake.", ev:"Bạn có thể chọn một cái bánh."},
+  {w:"decide", p:"verb", d:"to make a choice after thinking", vi:"quyết định", e:"We decide the time together.", ev:"Chúng ta cùng nhau quyết định thời gian."},
+  {w:"explain", p:"verb", d:"to make something easy to understand", vi:"giải thích", e:"Can you explain this word?", ev:"Bạn có thể giải thích từ này không?"},
+  {w:"forget", p:"verb", d:"to not remember", vi:"quên", e:"I always forget her name.", ev:"Tôi luôn quên tên cô ấy."},
+  {w:"remember", p:"verb", d:"to keep something in your mind", vi:"nhớ", e:"I remember your first message.", ev:"Tôi nhớ tin nhắn đầu tiên của bạn."},
+  {w:"borrow", p:"verb", d:"to take something and give it back later", vi:"mượn", e:"Can I borrow your pen?", ev:"Tôi có thể mượn bút của bạn không?"},
+  {w:"return", p:"verb", d:"to give something back", vi:"trả lại", e:"I will return the book on Friday.", ev:"Tôi sẽ trả lại cuốn sách vào thứ Sáu."}
+ ],
+ scenario:{
+  title:"The Borrowed Book",
+  text:"Yesterday I had to [[choose]] a book. I could not [[decide]], so my friend helped me. She had to [[explain]] the story first. I asked her, “Can I [[borrow]] this one?” She said yes, but I must [[return]] it on Monday. I did not want to [[forget]], so I wrote it on my hand. I will [[keep]] the book in my bag and [[bring]] it to school. I only [[need]] two days. I will [[remember]] — I promise.",
+  vi:"Hôm qua tôi phải chọn một cuốn sách. Tôi không thể quyết định, nên bạn tôi đã giúp tôi. Cô ấy phải giải thích câu chuyện trước. Tôi hỏi cô ấy: “Tôi có thể mượn cuốn này không?” Cô ấy nói được, nhưng tôi phải trả lại vào thứ Hai. Tôi không muốn quên, nên tôi đã viết lên tay. Tôi sẽ giữ cuốn sách trong túi và mang theo đến trường. Tôi chỉ cần hai ngày. Tôi sẽ nhớ — tôi hứa."
+ }
+},
+{
+ id:"v2", title:"People", color:"yellow",
+ words:[
+  {w:"friend", p:"noun", d:"a person you like and know well", vi:"bạn", e:"She is my best friend.", ev:"Cô ấy là bạn thân nhất của tôi."},
+  {w:"neighbour", p:"noun", d:"a person who lives near you", vi:"hàng xóm", e:"Our neighbour has two cats.", ev:"Hàng xóm của chúng tôi có hai con mèo."},
+  {w:"teacher", p:"noun", d:"a person who teaches", vi:"giáo viên", e:"My teacher speaks slowly.", ev:"Giáo viên của tôi nói chậm."},
+  {w:"student", p:"noun", d:"a person who studies", vi:"học sinh", e:"Every student has a book.", ev:"Mỗi học sinh đều có một cuốn sách."},
+  {w:"child", p:"noun", d:"a young boy or girl", vi:"đứa trẻ", e:"The child is sleeping.", ev:"Đứa trẻ đang ngủ."},
+  {w:"parents", p:"noun", d:"your mother and father", vi:"cha mẹ", e:"My parents live in a small town.", ev:"Cha mẹ tôi sống ở một thị trấn nhỏ."},
+  {w:"guest", p:"noun", d:"a person you invite to your home", vi:"khách", e:"We have a guest tonight.", ev:"Tối nay chúng tôi có khách."},
+  {w:"stranger", p:"noun", d:"a person you do not know", vi:"người lạ", e:"Do not open the door to a stranger.", ev:"Đừng mở cửa cho người lạ."},
+  {w:"doctor", p:"noun", d:"a person who helps sick people", vi:"bác sĩ", e:"The doctor is very kind.", ev:"Bác sĩ rất tốt bụng."},
+  {w:"driver", p:"noun", d:"a person who drives a car or bus", vi:"tài xế", e:"The driver stopped near the market.", ev:"Tài xế dừng lại gần chợ."}
+ ],
+ scenario:{
+  title:"Sunday at Home",
+  text:"On Sunday my [[parents]] cooked a big lunch. My best [[friend]] came, and our old [[neighbour]] came too. She brought her small [[child]]. My mother is a [[teacher]], so she asked me about school and about the new [[student]] in my class. Later a [[stranger]] knocked on the door — it was only the [[driver]] with a box. Our last [[guest]] was my aunt, and she is a [[doctor]].",
+  vi:"Vào Chủ nhật, cha mẹ tôi nấu một bữa trưa lớn. Bạn thân nhất của tôi đã đến, và người hàng xóm già của chúng tôi cũng đến. Bà ấy mang theo đứa trẻ nhỏ của mình. Mẹ tôi là giáo viên, nên bà hỏi tôi về trường học và về học sinh mới trong lớp. Sau đó, một người lạ gõ cửa — đó chỉ là tài xế với một cái hộp. Vị khách cuối cùng của chúng tôi là dì tôi, và bà ấy là bác sĩ."
+ }
+},
+{
+ id:"v3", title:"Feelings", color:"jade",
+ words:[
+  {w:"happy", p:"adjective", d:"feeling good and pleased", vi:"vui, hạnh phúc", e:"I am happy today.", ev:"Hôm nay tôi rất vui."},
+  {w:"tired", p:"adjective", d:"needing rest or sleep", vi:"mệt", e:"She is tired after work.", ev:"Cô ấy mệt sau khi làm việc."},
+  {w:"angry", p:"adjective", d:"feeling very annoyed", vi:"tức giận", e:"He was angry with me.", ev:"Anh ấy đã tức giận với tôi."},
+  {w:"afraid", p:"adjective", d:"feeling fear", vi:"sợ", e:"I am afraid of big dogs.", ev:"Tôi sợ chó lớn."},
+  {w:"proud", p:"adjective", d:"happy about something you did", vi:"tự hào", e:"My father is proud of me.", ev:"Bố tôi tự hào về tôi."},
+  {w:"bored", p:"adjective", d:"not interested, with nothing to do", vi:"chán", e:"The children are bored.", ev:"Bọn trẻ đang chán."},
+  {w:"excited", p:"adjective", d:"very happy about something coming", vi:"hào hứng", e:"We are excited about the trip.", ev:"Chúng tôi rất hào hứng về chuyến đi."},
+  {w:"calm", p:"adjective", d:"quiet and not worried", vi:"bình tĩnh", e:"Stay calm and speak slowly.", ev:"Hãy bình tĩnh và nói chậm."},
+  {w:"lonely", p:"adjective", d:"sad because you are alone", vi:"cô đơn", e:"The city felt lonely at night.", ev:"Thành phố cảm thấy cô đơn vào ban đêm."},
+  {w:"surprised", p:"adjective", d:"feeling something you did not expect", vi:"ngạc nhiên", e:"I was surprised by her letter.", ev:"Tôi đã ngạc nhiên vì lá thư của cô ấy."}
+ ],
+ scenario:{
+  title:"The First Week",
+  text:"In my first week here I was [[lonely]] and a little [[afraid]]. The days were long and I was often [[bored]] and very [[tired]]. Then a girl in my class said hello. I was [[surprised]], but I stayed [[calm]] and answered her. Now I am [[happy]] and [[excited]] about every morning. I am [[proud]] of myself, and I am no longer [[angry]] about the hard days.",
+  vi:"Trong tuần đầu tiên ở đây, tôi cô đơn và hơi sợ. Những ngày dài và tôi thường chán và rất mệt. Rồi một cô gái trong lớp chào tôi. Tôi ngạc nhiên, nhưng tôi vẫn bình tĩnh và trả lời cô ấy. Bây giờ tôi vui và hào hứng về mỗi buổi sáng. Tôi tự hào về bản thân, và tôi không còn tức giận về những ngày khó khăn nữa."
+ }
+},
+{
+ id:"v4", title:"At Home", color:"pink",
+ words:[
+  {w:"kitchen", p:"noun", d:"the room where you cook", vi:"nhà bếp", e:"My mother is in the kitchen.", ev:"Mẹ tôi đang ở trong nhà bếp."},
+  {w:"window", p:"noun", d:"the glass part of a wall", vi:"cửa sổ", e:"Please open the window.", ev:"Làm ơn mở cửa sổ."},
+  {w:"door", p:"noun", d:"you open it to enter a room", vi:"cửa", e:"The door is very old.", ev:"Cái cửa rất cũ."},
+  {w:"floor", p:"noun", d:"the part you walk on", vi:"sàn nhà", e:"The floor is cold in winter.", ev:"Sàn nhà lạnh vào mùa đông."},
+  {w:"key", p:"noun", d:"a small metal thing that opens a lock", vi:"chìa khóa", e:"I lost my key again.", ev:"Tôi lại làm mất chìa khóa."},
+  {w:"blanket", p:"noun", d:"a warm cover for your bed", vi:"cái chăn", e:"She needs another blanket.", ev:"Cô ấy cần thêm một cái chăn."},
+  {w:"towel", p:"noun", d:"cloth you use to dry your body", vi:"khăn tắm", e:"The towel is behind the door.", ev:"Cái khăn tắm ở phía sau cửa."},
+  {w:"spoon", p:"noun", d:"you eat soup with it", vi:"cái thìa", e:"I need a clean spoon.", ev:"Tôi cần một cái thìa sạch."},
+  {w:"shelf", p:"noun", d:"a flat board on a wall for things", vi:"cái kệ", e:"The cups are on the shelf.", ev:"Những cái cốc ở trên kệ."},
+  {w:"garden", p:"noun", d:"a place with plants near a house", vi:"khu vườn", e:"We have a small garden.", ev:"Chúng tôi có một khu vườn nhỏ."}
+ ],
+ scenario:{
+  title:"Saturday Morning",
+  text:"On Saturday I clean the [[kitchen]] first. I open the [[window]] and the [[door]], and I wash the [[floor]]. I put every [[spoon]] on the [[shelf]]. Then I take my wet [[towel]] and my [[blanket]] outside into the [[garden]]. When I finish, I always look for my [[key]], because it is never where I left it.",
+  vi:"Vào thứ Bảy, tôi dọn nhà bếp trước. Tôi mở cửa sổ và cửa, rồi tôi lau sàn nhà. Tôi đặt mỗi cái thìa lên kệ. Sau đó tôi mang khăn tắm ướt và cái chăn ra khu vườn. Khi làm xong, tôi luôn tìm chìa khóa, vì nó không bao giờ ở chỗ tôi đã để."
+ }
+},
+{
+ id:"v5", title:"Food & Drink", color:"blue",
+ words:[
+  {w:"rice", p:"noun", d:"small white grains you cook and eat", vi:"cơm, gạo", e:"We eat rice every day.", ev:"Chúng tôi ăn cơm mỗi ngày."},
+  {w:"bread", p:"noun", d:"food made from flour and baked", vi:"bánh mì", e:"The bread is still warm.", ev:"Bánh mì vẫn còn ấm."},
+  {w:"chicken", p:"noun", d:"meat from a bird people keep", vi:"thịt gà", e:"She cooked chicken and rice.", ev:"Cô ấy đã nấu thịt gà và cơm."},
+  {w:"vegetable", p:"noun", d:"a plant you eat, like a carrot", vi:"rau", e:"Eat one vegetable at lunch.", ev:"Hãy ăn một loại rau vào bữa trưa."},
+  {w:"fruit", p:"noun", d:"sweet food from a tree, like a mango", vi:"trái cây", e:"This fruit is very sweet.", ev:"Trái cây này rất ngọt."},
+  {w:"sugar", p:"noun", d:"white sweet powder for tea and cakes", vi:"đường", e:"No sugar in my coffee, please.", ev:"Làm ơn đừng cho đường vào cà phê của tôi."},
+  {w:"salt", p:"noun", d:"white powder that makes food salty", vi:"muối", e:"There is too much salt in the soup.", ev:"Có quá nhiều muối trong món canh."},
+  {w:"milk", p:"noun", d:"white drink from a cow", vi:"sữa", e:"The milk is in the door.", ev:"Sữa ở trong cánh cửa tủ lạnh."},
+  {w:"egg", p:"noun", d:"a bird lays it; you can cook it", vi:"trứng", e:"I eat one egg for breakfast.", ev:"Tôi ăn một quả trứng cho bữa sáng."},
+  {w:"water", p:"noun", d:"clear liquid that you drink", vi:"nước", e:"Drink more water today.", ev:"Hôm nay hãy uống nhiều nước hơn."}
+ ],
+ scenario:{
+  title:"Tuesday Dinner",
+  text:"Tonight I cook [[rice]] with [[chicken]] and one green [[vegetable]]. I forget the [[salt]] again, so the food is quiet. My sister brings [[bread]] and cuts a small [[fruit]] for after. She drinks [[milk]]; I drink cold [[water]]. There is one [[egg]] left, and no [[sugar]] at all.",
+  vi:"Tối nay tôi nấu cơm với thịt gà và một loại rau xanh. Tôi lại quên muối, nên món ăn nhạt. Chị tôi mang bánh mì và cắt một ít trái cây để ăn tráng miệng. Chị ấy uống sữa; tôi uống nước lạnh. Còn lại một quả trứng, và hoàn toàn không còn đường."
+ }
+},
+{
+ id:"v6", title:"Time", color:"red",
+ words:[
+  {w:"today", p:"adverb", d:"this day", vi:"hôm nay", e:"Today is very warm.", ev:"Hôm nay trời rất ấm."},
+  {w:"tomorrow", p:"adverb", d:"the day after today", vi:"ngày mai", e:"I will call you tomorrow.", ev:"Ngày mai tôi sẽ gọi cho bạn."},
+  {w:"yesterday", p:"adverb", d:"the day before today", vi:"hôm qua", e:"Yesterday was a long day.", ev:"Hôm qua là một ngày dài."},
+  {w:"week", p:"noun", d:"seven days", vi:"tuần", e:"I study English every week.", ev:"Tôi học tiếng Anh mỗi tuần."},
+  {w:"month", p:"noun", d:"about thirty days", vi:"tháng", e:"She comes back next month.", ev:"Cô ấy sẽ quay lại vào tháng sau."},
+  {w:"year", p:"noun", d:"twelve months", vi:"năm", e:"I moved here last year.", ev:"Tôi chuyển đến đây năm ngoái."},
+  {w:"morning", p:"noun", d:"the early part of the day", vi:"buổi sáng", e:"I read in the morning.", ev:"Tôi đọc sách vào buổi sáng."},
+  {w:"evening", p:"noun", d:"the end of the day, before night", vi:"buổi tối", e:"We walk in the evening.", ev:"Chúng tôi đi bộ vào buổi tối."},
+  {w:"hour", p:"noun", d:"sixty minutes", vi:"giờ", e:"The class is one hour.", ev:"Lớp học kéo dài một giờ."},
+  {w:"minute", p:"noun", d:"sixty seconds", vi:"phút", e:"Wait one minute, please.", ev:"Làm ơn đợi một phút."}
+ ],
+ scenario:{
+  title:"My Small Plan",
+  text:"[[Yesterday]] I studied only ten [[minutes]]. [[Today]] I studied one full [[hour]] — in the [[morning]] and again in the [[evening]]. [[Tomorrow]] I will do the same. If I study every [[week]], then in one [[month]] I will know three hundred words, and in one [[year]] I will not be a beginner.",
+  vi:"Hôm qua tôi chỉ học mười phút. Hôm nay tôi đã học trọn một giờ — vào buổi sáng và lại vào buổi tối. Ngày mai tôi sẽ làm như vậy. Nếu tôi học mỗi tuần, thì trong một tháng tôi sẽ biết ba trăm từ, và trong một năm tôi sẽ không còn là người mới bắt đầu."
+ }
+},
+{
+ id:"v7", title:"Places", color:"yellow",
+ words:[
+  {w:"street", p:"noun", d:"a road in a town with houses", vi:"đường phố", e:"Our street is very quiet.", ev:"Đường phố của chúng tôi rất yên tĩnh."},
+  {w:"market", p:"noun", d:"a place where people sell food", vi:"chợ", e:"The market opens at six.", ev:"Chợ mở cửa lúc sáu giờ."},
+  {w:"station", p:"noun", d:"a place where trains stop", vi:"nhà ga", e:"I met her at the station.", ev:"Tôi đã gặp cô ấy ở nhà ga."},
+  {w:"airport", p:"noun", d:"a place where planes land", vi:"sân bay", e:"The airport is far from here.", ev:"Sân bay ở xa đây."},
+  {w:"hotel", p:"noun", d:"a place where you pay to sleep", vi:"khách sạn", e:"Our hotel was small and clean.", ev:"Khách sạn của chúng tôi nhỏ và sạch sẽ."},
+  {w:"hospital", p:"noun", d:"a place where doctors help people", vi:"bệnh viện", e:"The hospital is near the bridge.", ev:"Bệnh viện ở gần cây cầu."},
+  {w:"bridge", p:"noun", d:"it goes over a river", vi:"cây cầu", e:"We walked across the bridge.", ev:"Chúng tôi đã đi bộ qua cây cầu."},
+  {w:"village", p:"noun", d:"a very small town", vi:"ngôi làng", e:"My grandmother lives in a village.", ev:"Bà tôi sống ở một ngôi làng."},
+  {w:"city", p:"noun", d:"a very big town", vi:"thành phố", e:"This city never sleeps.", ev:"Thành phố này không bao giờ ngủ."},
+  {w:"beach", p:"noun", d:"sand next to the sea", vi:"bãi biển", e:"The beach is empty in winter.", ev:"Bãi biển vắng vào mùa đông."}
+ ],
+ scenario:{
+  title:"One Long Day",
+  text:"We left the [[village]] early and took a bus to the [[city]]. At the [[station]] we bought fruit from a small [[market]]. Our [[hotel]] was on a narrow [[street]] near a [[bridge]]. In the afternoon we walked to the [[beach]]. My brother fell and we went to the [[hospital]] for one hour. The next morning we drove to the [[airport]].",
+  vi:"Chúng tôi rời ngôi làng sớm và đi xe buýt đến thành phố. Ở nhà ga, chúng tôi mua trái cây từ một cái chợ nhỏ. Khách sạn của chúng tôi nằm trên một con đường hẹp gần cây cầu. Buổi chiều chúng tôi đi bộ ra bãi biển. Em trai tôi bị ngã và chúng tôi đến bệnh viện một giờ. Sáng hôm sau chúng tôi lái xe đến sân bay."
+ }
+},
+{
+ id:"v8", title:"Describing Things", color:"jade",
+ words:[
+  {w:"cheap", p:"adjective", d:"not expensive", vi:"rẻ", e:"This bag was very cheap.", ev:"Cái túi này rất rẻ."},
+  {w:"heavy", p:"adjective", d:"weighing a lot", vi:"nặng", e:"My school bag is heavy.", ev:"Cặp sách của tôi rất nặng."},
+  {w:"empty", p:"adjective", d:"with nothing inside", vi:"trống, rỗng", e:"The bottle is empty.", ev:"Cái chai đã rỗng."},
+  {w:"clean", p:"adjective", d:"not dirty", vi:"sạch", e:"The room is clean now.", ev:"Bây giờ căn phòng đã sạch."},
+  {w:"dark", p:"adjective", d:"with little or no light", vi:"tối", e:"The street is dark at night.", ev:"Đường phố tối vào ban đêm."},
+  {w:"soft", p:"adjective", d:"not hard, nice to touch", vi:"mềm", e:"This blanket is very soft.", ev:"Cái chăn này rất mềm."},
+  {w:"sharp", p:"adjective", d:"able to cut easily", vi:"sắc, bén", e:"Be careful, the knife is sharp.", ev:"Cẩn thận, con dao rất sắc."},
+  {w:"fresh", p:"adjective", d:"new and not old, especially food", vi:"tươi", e:"The fish is fresh today.", ev:"Hôm nay cá rất tươi."},
+  {w:"loud", p:"adjective", d:"making a lot of noise", vi:"ồn ào, to", e:"The music is too loud.", ev:"Nhạc quá to."},
+  {w:"narrow", p:"adjective", d:"not wide", vi:"hẹp", e:"We walked down a narrow street.", ev:"Chúng tôi đi xuống một con đường hẹp."}
+ ],
+ scenario:{
+  title:"The Little Shop",
+  text:"There is a [[narrow]] shop near my house. It is [[dark]] inside and often [[loud]], but everything is [[cheap]]. The bread is always [[fresh]] and the shelves are [[clean]]. Yesterday I bought a [[soft]] towel, a [[sharp]] knife, and a [[heavy]] bag of rice. When I came home, my wallet was [[empty]].",
+  vi:"Có một cửa hàng hẹp gần nhà tôi. Bên trong tối và thường ồn ào, nhưng mọi thứ đều rẻ. Bánh mì luôn tươi và các kệ đều sạch. Hôm qua tôi mua một cái khăn mềm, một con dao sắc, và một bao gạo nặng. Khi về đến nhà, ví của tôi đã rỗng."
+ }
+},
+{
+ id:"v9", title:"Work & Study", color:"pink",
+ words:[
+  {w:"work", p:"verb / noun", d:"to do a job", vi:"làm việc, công việc", e:"I work six days a week.", ev:"Tôi làm việc sáu ngày một tuần."},
+  {w:"learn", p:"verb", d:"to get new knowledge", vi:"học", e:"I learn ten words a day.", ev:"Tôi học mười từ mỗi ngày."},
+  {w:"teach", p:"verb", d:"to help someone learn", vi:"dạy", e:"She teaches small children.", ev:"Cô ấy dạy trẻ nhỏ."},
+  {w:"write", p:"verb", d:"to make words on paper", vi:"viết", e:"Write your name here.", ev:"Hãy viết tên bạn ở đây."},
+  {w:"read", p:"verb", d:"to look at words and understand them", vi:"đọc", e:"I read before I sleep.", ev:"Tôi đọc sách trước khi ngủ."},
+  {w:"answer", p:"verb / noun", d:"to say something back to a question", vi:"trả lời, câu trả lời", e:"Please answer in English.", ev:"Làm ơn trả lời bằng tiếng Anh."},
+  {w:"question", p:"noun", d:"something you ask", vi:"câu hỏi", e:"That is a good question.", ev:"Đó là một câu hỏi hay."},
+  {w:"book", p:"noun", d:"pages with words, joined together", vi:"cuốn sách", e:"This book is easy for me.", ev:"Cuốn sách này dễ đối với tôi."},
+  {w:"paper", p:"noun", d:"thin material you write on", vi:"giấy", e:"Give me a piece of paper.", ev:"Cho tôi một tờ giấy."},
+  {w:"money", p:"noun", d:"what you use to buy things", vi:"tiền", e:"I save money every month.", ev:"Tôi tiết kiệm tiền mỗi tháng."}
+ ],
+ scenario:{
+  title:"Ten Words a Day",
+  text:"My sister and I [[learn]] English together. She likes to [[read]]; I like to [[write]]. Every evening she asks me one [[question]] and I must [[answer]] in English. I keep one [[book]] and one sheet of [[paper]] on my desk. She wants to [[teach]] children one day, and I want to [[work]] in a hotel. Neither of us has much [[money]], but we have time.",
+  vi:"Chị tôi và tôi học tiếng Anh cùng nhau. Chị ấy thích đọc; tôi thích viết. Mỗi tối chị ấy hỏi tôi một câu hỏi và tôi phải trả lời bằng tiếng Anh. Tôi để một cuốn sách và một tờ giấy trên bàn. Chị ấy muốn dạy trẻ em một ngày nào đó, còn tôi muốn làm việc trong một khách sạn. Cả hai chúng tôi đều không có nhiều tiền, nhưng chúng tôi có thời gian."
+ }
+},
+{
+ id:"v10", title:"The Body", color:"blue",
+ words:[
+  {w:"head", p:"noun", d:"the top part of your body", vi:"cái đầu", e:"My head hurts a little.", ev:"Đầu tôi hơi đau."},
+  {w:"hand", p:"noun", d:"you hold things with it", vi:"bàn tay", e:"Wash your hands before dinner.", ev:"Hãy rửa tay trước bữa tối."},
+  {w:"eye", p:"noun", d:"you see with it", vi:"mắt", e:"She has dark eyes.", ev:"Cô ấy có đôi mắt đen."},
+  {w:"tooth", p:"noun", d:"white and hard, inside your mouth", vi:"cái răng", e:"One tooth is broken.", ev:"Một cái răng bị gãy."},
+  {w:"foot", p:"noun", d:"you stand on it", vi:"bàn chân", e:"My left foot is cold.", ev:"Bàn chân trái của tôi lạnh."},
+  {w:"heart", p:"noun", d:"it moves blood in your body", vi:"trái tim", e:"My heart beats fast.", ev:"Tim tôi đập nhanh."},
+  {w:"hair", p:"noun", d:"it grows on your head", vi:"tóc", e:"Her hair is long and black.", ev:"Tóc cô ấy dài và đen."},
+  {w:"ear", p:"noun", d:"you hear with it", vi:"cái tai", e:"Put the phone near your ear.", ev:"Hãy đặt điện thoại gần tai bạn."},
+  {w:"knee", p:"noun", d:"the middle of your leg", vi:"đầu gối", e:"I fell and hurt my knee.", ev:"Tôi bị ngã và đau đầu gối."},
+  {w:"skin", p:"noun", d:"it covers all your body", vi:"da", e:"The sun is bad for your skin.", ev:"Ánh nắng không tốt cho da của bạn."}
+ ],
+ scenario:{
+  title:"After the Football",
+  text:"After the game my [[head]] was hot and my [[skin]] was red. I hurt my right [[knee]] and my left [[foot]]. My [[heart]] was beating very fast. There was sand in my [[hair]] and in one [[ear]], and I could not open my left [[eye]]. I washed my [[hand]] and found one broken [[tooth]] on the floor. It was still a good day.",
+  vi:"Sau trận đấu, đầu tôi nóng và da tôi đỏ. Tôi bị đau đầu gối phải và bàn chân trái. Tim tôi đập rất nhanh. Có cát trong tóc và trong một bên tai, và tôi không thể mở mắt trái. Tôi rửa tay và tìm thấy một cái răng gãy trên sàn. Đó vẫn là một ngày tốt."
+ }
+}
+]
+};
+
+</script>
+<script>
+"use strict";
+
+/* ============ welcome ============ */
+(function(){
+  var w = document.getElementById('welcome'), t = document.getElementById('wtimer'), n = 15, iv;
+  function close(){ clearInterval(iv); w.classList.add('gone'); setTimeout(function(){ w.remove(); }, 600); }
+  document.getElementById('startBtn').addEventListener('click', close);
+  t.textContent = 'This closes in ' + n + ' seconds';
+  iv = setInterval(function(){
+    n--; t.textContent = 'This closes in ' + n + ' seconds';
+    if(n <= 0) close();
+  }, 1000);
+})();
+
+/* ============ data ============ */
+var PACKS = [window.PACK_VI];
+var SETS = [], WORDS = [], DICT = {};
+function indexPacks(){
+  SETS = []; WORDS = []; DICT = {};
+  PACKS.forEach(function(p){
+    if(!p || !p.sets) return;
+    p.sets.forEach(function(s){
+      SETS.push(s);
+      s.words.forEach(function(w){ w._set = s.id; WORDS.push(w); DICT[w.w.toLowerCase()] = w; });
+    });
+  });
+}
+indexPacks();
+
+/* ============ progress ============ */
+var mem = {};
+function store(k, v){
+  if(v === undefined){
+    try{ var r = localStorage.getItem('wg_'+k); return r ? JSON.parse(r) : mem[k]; }catch(e){ return mem[k]; }
+  }
+  mem[k] = v;
+  try{ localStorage.setItem('wg_'+k, JSON.stringify(v)); }catch(e){}
+}
+var SRS = store('srs') || {};
+function saveSRS(){ store('srs', SRS); }
+var DAY = 86400000, STEPS = [0,1,3,7,16,35,70];
+function rec(w){ return SRS[w] || null; }
+function isSeen(w){ return !!rec(w); }
+function isDue(w){ var r = rec(w); return !r || r.due <= Date.now(); }
+function grade(w, g){
+  var r = rec(w) || {lv:0, reps:0};
+  if(g === 0) r.lv = 0;
+  else if(g === 1) r.lv = Math.min(r.lv+1, STEPS.length-1);
+  else r.lv = Math.min(r.lv+2, STEPS.length-1);
+  r.reps++;
+  r.due = Date.now() + STEPS[r.lv]*DAY + (g === 0 ? 60000 : 0);
+  SRS[w] = r; saveSRS(); refreshBadge();
+}
+function dueList(){ return WORDS.filter(function(w){ return isSeen(w.w) && isDue(w.w); }); }
+function refreshBadge(){ document.getElementById('dueBadge').textContent = dueList().length; }
+
+/* ============ voice — only on button press ============ */
+var VS = {voice: store('voice') || '', rate: store('rate') || 0.9};
+function voices(){ return window.speechSynthesis ? speechSynthesis.getVoices().filter(function(v){ return /^en/i.test(v.lang); }) : []; }
+function scoreVoice(v){
+  var n = (v.name+' '+(v.voiceURI||'')).toLowerCase(), s = 0;
+  ['natural','neural','premium','enhanced','google','siri','aria','libby','sonia','ava','jenny','samantha','daniel'].forEach(function(k,i){ if(n.indexOf(k)>-1) s += (14-i); });
+  if(/en-gb|en-us/i.test(v.lang)) s += 3;
+  if(n.indexOf('compact')>-1 || n.indexOf('espeak')>-1) s -= 12;
+  if(v.localService === false) s += 4;
+  return s;
+}
+function bestVoice(){
+  var list = voices();
+  if(!list.length) return null;
+  if(VS.voice){ var p = list.filter(function(v){ return v.name === VS.voice; })[0]; if(p) return p; }
+  return list.slice().sort(function(a,b){ return scoreVoice(b)-scoreVoice(a); })[0];
+}
+function speak(text, rate){
+  if(!window.speechSynthesis) return;
+  speechSynthesis.cancel();
+  var u = new SpeechSynthesisUtterance(text);
+  u.rate = rate || VS.rate; u.pitch = 1;
+  var v = bestVoice();
+  if(v){ u.voice = v; u.lang = v.lang; } else u.lang = 'en-GB';
+  speechSynthesis.speak(u);
+}
+if(window.speechSynthesis){
+  speechSynthesis.getVoices();
+  speechSynthesis.onvoiceschanged = function(){ var s = document.getElementById('voiceSel'); if(s) fillVoices(s); };
+}
+function bindSay(){
+  document.querySelectorAll('[data-say]').forEach(function(b){
+    if(b._b) return; b._b = 1;
+    b.addEventListener('click', function(e){
+      e.stopPropagation();
+      speak(b.dataset.say, b.dataset.slow ? 0.6 : VS.rate);
+    });
+  });
+}
+
+/* ============ helpers ============ */
+var V = document.getElementById('view');
+function el(h){ var d = document.createElement('div'); d.innerHTML = h.trim(); return d.firstChild; }
+function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+function shuffle(a){ a = a.slice(); for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)), t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
+function setOf(id){ return SETS.filter(function(s){ return s.id === id; })[0]; }
+function highlightWord(sentence, word){
+  var re = new RegExp('('+word.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'[a-z]*)','i');
+  return esc(sentence).replace(re, '<em>$1</em>');
+}
+function trBlock(id, vi){
+  return '<div class="trrow"><button class="trbtn" data-tr="'+id+'">Tiếng Việt</button></div>'+
+         '<div class="tr" id="'+id+'">'+esc(vi)+'</div>';
+}
+document.addEventListener('click', function(e){
+  var b = e.target.closest ? e.target.closest('[data-tr]') : null;
+  if(!b) return;
+  var box = document.getElementById(b.dataset.tr);
+  if(box) b.classList.toggle('on', box.classList.toggle('on'));
+});
+
+/* ============ router ============ */
+document.querySelectorAll('.tab').forEach(function(t){ t.addEventListener('click', function(){ go(t.dataset.v); }); });
+function go(v, arg){
+  if(window.speechSynthesis) speechSynthesis.cancel();
+  document.querySelectorAll('.tab').forEach(function(t){ t.classList.toggle('on', t.dataset.v === v); });
+  window.scrollTo(0,0);
+  ({home:viewHome, review:viewReview, test:viewTest, browse:viewBrowse, settings:viewSettings, learn:viewLearn})[v](arg);
+}
+
+/* ============ home ============ */
+function viewHome(){
+  var seen = WORDS.filter(function(w){ return isSeen(w.w); }).length;
+  var strong = WORDS.filter(function(w){ var r = rec(w.w); return r && r.lv >= 3; }).length;
+  V.innerHTML = '<h2 class="big">One hundred words to start with</h2>'+
+    '<p class="sub">Ten sets · ten words each · every word is short and simple</p>'+
+    '<div class="stats">'+
+      '<div class="stat"><span class="lab">Words here</span><b>'+WORDS.length+'</b></div>'+
+      '<div class="stat"><span class="lab">Started</span><b>'+seen+'</b></div>'+
+      '<div class="stat"><span class="lab">Well known</span><b>'+strong+'</b></div>'+
+      '<div class="stat"><span class="lab">Due today</span><b>'+dueList().length+'</b></div>'+
+    '</div><div class="grid" id="setGrid"></div>';
+  var g = document.getElementById('setGrid');
+  SETS.forEach(function(s){
+    var known = s.words.filter(function(w){ return isSeen(w.w); }).length;
+    var c = el('<div class="setcard c-'+s.color+'">'+
+      '<span class="dot"></span><h3>'+esc(s.title)+'</h3>'+
+      '<div class="setmeta">'+s.words.length+' words · '+known+' started</div>'+
+      '<div class="mini"><i style="width:'+Math.round(known/s.words.length*100)+'%"></i></div>'+
+      '<div class="row" style="margin-top:16px">'+
+        '<button class="btn sm" data-act="study">Study</button>'+
+        '<button class="btn sm" data-act="test">Section test</button>'+
+      '</div></div>');
+    c.querySelector('[data-act="study"]').addEventListener('click', function(){ go('learn', s.id); });
+    c.querySelector('[data-act="test"]').addEventListener('click', function(){ sectionTest(s.id); });
+    g.appendChild(c);
+  });
+  refreshBadge();
+}
+
+/* ============ learn ============ */
+var S = null;
+function viewLearn(id){
+  var s = setOf(id); if(!s) return go('home');
+  S = {set:s, queue:s.words.slice(), i:0, right:0, quiz:null, testOnly:false};
+  renderCard();
+}
+function shell(inner, pct){
+  return '<div class="stage c-'+S.set.color+'"><div class="crumb">'+
+    '<button class="btn sm" id="backBtn">← Sets</button>'+
+    '<span class="lab">'+esc(S.set.title)+'</span>'+
+    '<span class="progline"><i style="width:'+pct+'%"></i></span></div>'+inner+'</div>';
+}
+function bindBack(){ var b = document.getElementById('backBtn'); if(b) b.addEventListener('click', function(){ go('home'); }); }
+function renderCard(){
+  var w = S.queue[S.i];
+  if(!w) return renderQuizIntro();
+  var inner = '<div class="card">'+
+    '<span class="pos">'+esc(w.p)+'</span>'+
+    '<div class="word">'+esc(w.w)+'<span class="audio">'+
+      '<button class="ico" data-say="'+esc(w.w)+'">▶ HEAR</button>'+
+      '<button class="ico" data-say="'+esc(w.w)+'" data-slow="1">SLOW</button></span></div>'+
+    '<p class="def">'+esc(w.d)+'</p>'+
+    trBlock('tw'+S.i, w.vi)+
+    '<div class="divider"></div><span class="lab">In a sentence</span>'+
+    '<p class="example" style="margin:8px 0 0">'+highlightWord(w.e, w.w)+'<span class="audio">'+
+      '<button class="ico sm" data-say="'+esc(w.e)+'">▶</button>'+
+      '<button class="ico sm" data-say="'+esc(w.e)+'" data-slow="1">SLOW</button></span></p>'+
+    trBlock('te'+S.i, w.ev)+
+    '<div class="rate">'+
+      '<button data-g="0">Not yet<small>chưa nhớ</small></button>'+
+      '<button data-g="1">Got it<small>đã hiểu</small></button>'+
+      '<button data-g="2">Easy<small>quá dễ</small></button>'+
+    '</div></div>'+
+    '<div class="row navrow">'+
+      '<button class="btn sm" id="prevW"'+(S.i === 0 ? ' disabled':'')+'>← Previous</button>'+
+      '<span class="lab">Word '+(S.i+1)+' of '+S.queue.length+'</span>'+
+      '<button class="btn sm" id="nextW">'+(S.i === S.queue.length-1 ? 'To the test →' : 'Next →')+'</button>'+
+    '</div>';
+  V.innerHTML = shell(inner, Math.round(S.i/S.queue.length*50));
+  bindBack(); bindSay();
+  document.querySelectorAll('.rate button').forEach(function(b){
+    b.addEventListener('click', function(){ grade(w.w, +b.dataset.g); S.i++; renderCard(); });
+  });
+  document.getElementById('prevW').addEventListener('click', function(){ if(S.i>0){ S.i--; renderCard(); } });
+  document.getElementById('nextW').addEventListener('click', function(){ S.i++; renderCard(); });
+}
+
+/* ---- section test ---- */
+function sectionTest(id){
+  var s = setOf(id); if(!s) return go('home');
+  if(window.speechSynthesis) speechSynthesis.cancel();
+  document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('on'); });
+  window.scrollTo(0,0);
+  S = {set:s, queue:s.words.slice(), i:0, right:0, quiz:null, testOnly:true};
+  renderQuizIntro();
+}
+function renderQuizIntro(){
+  var inner = '<div class="qbox"><div class="qtype">'+(S.testOnly ? 'Section test' : 'Stage 2 of 3')+'</div>'+
+    '<h2 class="qprompt">Ready for ten questions?</h2>'+
+    '<p class="qhint">Meaning · listening · writing the word from memory.<br>'+
+    '<span class="vi" style="font-size:15px;color:var(--ink)">Mười câu hỏi ngắn. Sai cũng không sao — từ đó sẽ quay lại sớm hơn.</span></p>'+
+    '<div class="row"><button class="btn solid" id="startQ">Start</button></div></div>';
+  V.innerHTML = shell(inner, 50);
+  bindBack();
+  document.getElementById('startQ').addEventListener('click', function(){
+    S.quiz = shuffle(S.set.words).map(function(w,i){ return {w:w, t:['mean','listen','recall','mean','listen'][i%5]}; });
+    S.qi = 0; S.right = 0; renderQ();
+  });
+}
+function distractors(w, key, n){
+  return shuffle(WORDS.filter(function(x){ return x.w !== w.w; })).slice(0,n).map(function(x){ return x[key]; });
+}
+function renderQ(){
+  var q = S.quiz[S.qi];
+  if(!q) return S.testOnly ? renderDone() : renderScenarioIntro();
+  var w = q.w, head, body;
+  if(q.t === 'mean'){
+    head = '<div class="qtype">Question '+(S.qi+1)+' / '+S.quiz.length+' · Meaning</div>'+
+      '<h2 class="qprompt">'+esc(w.w)+' <button class="ico" data-say="'+esc(w.w)+'">▶</button></h2>'+
+      '<p class="qhint">Chọn nghĩa đúng · choose the meaning</p>';
+    var o = shuffle([w.vi].concat(distractors(w,'vi',3)));
+    body = '<div class="opts">'+o.map(function(x){ return '<button class="opt vi" data-ok="'+(x===w.vi?1:0)+'">'+esc(x)+'</button>'; }).join('')+'</div>';
+  } else if(q.t === 'listen'){
+    head = '<div class="qtype">Question '+(S.qi+1)+' / '+S.quiz.length+' · Listening</div>'+
+      '<h2 class="qprompt">Which word is it?</h2>'+
+      '<p class="qhint"><button class="ico" data-say="'+esc(w.e)+'">▶ PLAY</button> '+
+      '<button class="ico" data-say="'+esc(w.e)+'" data-slow="1">SLOW</button><br>Nghe bao nhiêu lần cũng được.</p>';
+    var o2 = shuffle([w.w].concat(distractors(w,'w',3)));
+    body = '<div class="opts">'+o2.map(function(x){ return '<button class="opt" data-ok="'+(x===w.w?1:0)+'">'+esc(x)+'</button>'; }).join('')+'</div>';
+  } else {
+    head = '<div class="qtype">Question '+(S.qi+1)+' / '+S.quiz.length+' · Write it</div>'+
+      '<h2 class="qprompt vi">'+esc(w.vi)+'</h2>'+
+      '<p class="qhint">Viết từ tiếng Anh · it starts with “'+esc(w.w[0])+'”</p>';
+    body = '<input class="typein" id="tIn" autocomplete="off" spellcheck="false" placeholder="…">'+
+      '<div class="row" style="margin-top:14px"><button class="btn solid" id="ck">Check</button>'+
+      '<button class="btn sm" id="sk">I don\'t know</button></div>';
+  }
+  V.innerHTML = shell('<div class="qbox">'+head+body+'<div class="fb" id="fb"></div></div>',
+    50 + Math.round(S.qi/S.quiz.length*(S.testOnly?50:30)));
+  bindBack(); bindSay();
+  function finish(ok){
+    if(ok) S.right++;
+    grade(w.w, ok ? 1 : 0);
+    var fb = document.getElementById('fb');
+    fb.className = 'fb on';
+    fb.innerHTML = (ok ? '✓ CORRECT — ' : '✗ NOT QUITE — ')+'<b>'+esc(w.w)+'</b> '+
+      '<button class="ico sm" data-say="'+esc(w.w)+'">▶</button> = <span class="vi">'+esc(w.vi)+'</span><br>'+
+      esc(w.e)+' <button class="ico sm" data-say="'+esc(w.e)+'">▶</button><br><span class="vi">'+esc(w.ev)+'</span>';
+    bindSay();
+    fb.parentNode.appendChild(el('<div class="row" style="margin-top:18px"><button class="btn solid" id="nq">Next →</button></div>'));
+    document.getElementById('nq').addEventListener('click', function(){ S.qi++; renderQ(); });
+  }
+  document.querySelectorAll('.opt').forEach(function(b){
+    b.addEventListener('click', function(){
+      if(document.querySelector('.opt.locked')) return;
+      var ok = b.dataset.ok === '1';
+      document.querySelectorAll('.opt').forEach(function(x){ x.classList.add('locked'); if(x.dataset.ok === '1') x.classList.add('right'); });
+      if(!ok) b.classList.add('wrong');
+      finish(ok);
+    });
+  });
+  var ck = document.getElementById('ck');
+  if(ck){
+    var inp = document.getElementById('tIn'), done = false;
+    inp.focus();
+    function judge(skip){
+      if(done) return; done = true;
+      var ok = !skip && inp.value.trim().toLowerCase() === w.w.toLowerCase();
+      if(skip) inp.value = w.w;
+      inp.className = 'typein ' + (ok ? 'right' : 'wrong');
+      inp.disabled = true; finish(ok);
+    }
+    ck.addEventListener('click', function(){ judge(false); });
+    document.getElementById('sk').addEventListener('click', function(){ judge(true); });
+    inp.addEventListener('keydown', function(e){ if(e.key === 'Enter') judge(false); });
+  }
+}
+
+/* ---- scenario ---- */
+function parseScen(t){
+  var out = [], re = /\[\[(.+?)\]\]/g, last = 0, m;
+  while((m = re.exec(t))){
+    if(m.index > last) out.push({t:'txt', v:t.slice(last, m.index)});
+    out.push({t:'tgt', v:m[1]}); last = m.index + m[0].length;
+  }
+  if(last < t.length) out.push({t:'txt', v:t.slice(last)});
+  return out;
+}
+function plain(t){ return t.replace(/\[\[(.+?)\]\]/g,'$1'); }
+function renderScenarioIntro(){
+  var sc = S.set.scenario;
+  var html = parseScen(sc.text).map(function(p){
+    return p.t === 'txt' ? esc(p.v) : '<span class="tgt">'+esc(p.v)+'</span>';
+  }).join('');
+  V.innerHTML = shell('<div class="qtype" style="margin-bottom:10px">Stage 3 of 3 · all ten words together</div>'+
+    '<div class="scen"><h3>'+esc(sc.title)+'</h3>'+
+    '<div class="row" style="margin-bottom:16px">'+
+      '<button class="ico" data-say="'+esc(plain(sc.text))+'">▶ READ IT TO ME</button>'+
+      '<button class="ico" data-say="'+esc(plain(sc.text))+'" data-slow="1">SLOW</button></div>'+
+    '<p>'+html+'</p>'+ trBlock('tsc', sc.vi)+
+    '<div class="row" style="margin-top:22px"><button class="btn solid" id="cl">Now hide some words</button></div></div>', 82);
+  bindBack(); bindSay();
+  document.getElementById('cl').addEventListener('click', renderCloze);
+}
+function renderCloze(){
+  var sc = S.set.scenario, parts = parseScen(sc.text);
+  var idxs = parts.map(function(p,i){ return p.t === 'tgt' ? i : -1; }).filter(function(i){ return i > -1; });
+  var chosen = shuffle(idxs).slice(0,6);
+  var html = parts.map(function(p,i){
+    if(p.t === 'txt') return esc(p.v);
+    return chosen.indexOf(i) > -1
+      ? '<input class="blank" data-ans="'+esc(p.v.toLowerCase())+'" aria-label="gap">'
+      : '<span class="tgt">'+esc(p.v)+'</span>';
+  }).join('');
+  V.innerHTML = shell('<div class="qtype" style="margin-bottom:10px">Stage 3 of 3 · fill the gaps</div>'+
+    '<div class="scen"><h3>'+esc(sc.title)+'</h3>'+
+    '<div class="row" style="margin-bottom:14px"><button class="ico" data-say="'+esc(plain(sc.text))+'" data-slow="1">▶ LISTEN SLOWLY</button></div>'+
+    '<p>'+html+'</p>'+
+    '<p class="lab" style="margin-top:18px">Word bank</p>'+
+    '<p class="sub" style="margin:6px 0 0">'+shuffle(chosen.map(function(i){ return parts[i].v; })).map(esc).join(' &nbsp;·&nbsp; ')+'</p>'+
+    '<div class="row" style="margin-top:20px"><button class="btn solid" id="cc">Check</button></div>'+
+    '<div class="fb" id="cfb"></div></div>', 94);
+  bindBack(); bindSay();
+  document.getElementById('cc').addEventListener('click', function(){
+    var r = 0, a = 0;
+    document.querySelectorAll('.blank').forEach(function(i){
+      a++; var ok = i.value.trim().toLowerCase() === i.dataset.ans;
+      i.className = 'blank ' + (ok ? 'right':'wrong');
+      if(ok) r++; else i.value = i.dataset.ans;
+    });
+    var fb = document.getElementById('cfb');
+    fb.className = 'fb on';
+    fb.innerHTML = '<b>'+r+' of '+a+' correct.</b> <span class="vi">Hãy đọc to cả đoạn một lần trước khi kết thúc.</span>';
+    if(!document.getElementById('fs')){
+      fb.parentNode.appendChild(el('<div class="row" style="margin-top:18px"><button class="btn solid" id="fs">Finish →</button></div>'));
+      document.getElementById('fs').addEventListener('click', renderDone);
+    }
+  });
+}
+function renderDone(){
+  var pct = S.quiz ? Math.round(S.right/S.quiz.length*100) : 0;
+  var soon = S.set.words.filter(function(w){ var r = rec(w.w); return r && r.lv <= 1; });
+  V.innerHTML = shell('<div class="done-note"><span class="lab" style="color:#9C948A">'+
+    (S.testOnly ? 'Section test' : 'Questions correct')+'</span><div class="big">'+pct+'%</div>'+
+    '<p style="color:#CFC6B8;margin:0 auto;max-width:44ch">'+
+    (soon.length ? esc(soon.length + ' word' + (soon.length>1?'s':'') + ' will come back tomorrow: ')+'<b style="color:#F4B912">'+soon.map(function(w){ return esc(w.w); }).join(', ')+'</b>'
+      : 'All ten words are scheduled for later. Well done, Kelly.')+'</p>'+
+    '<div class="row" style="justify-content:center;margin-top:24px">'+
+      '<button class="btn" id="again">Study again</button>'+
+      '<button class="btn" id="hm">Another set</button></div></div>', 100);
+  bindBack();
+  document.getElementById('again').addEventListener('click', function(){ viewLearn(S.set.id); });
+  document.getElementById('hm').addEventListener('click', function(){ go('home'); });
+  refreshBadge();
+}
+
+/* ============ review ============ */
+var R = null;
+function viewReview(){
+  var due = dueList();
+  if(!due.length){
+    V.innerHTML = '<h2 class="big">Nothing is due yet</h2>'+
+      '<p class="sub">Study one set first. Words come back tomorrow, then in three days, then in a week.</p>'+
+      '<button class="btn solid" id="ts">Go to the sets</button>';
+    document.getElementById('ts').addEventListener('click', function(){ go('home'); });
+    return;
+  }
+  R = {q: shuffle(due), i:0, right:0}; renderReview();
+}
+function renderReview(){
+  var w = R.q[R.i];
+  if(!w){
+    V.innerHTML = '<div class="stage"><div class="done-note"><span class="lab" style="color:#9C948A">Review finished</span>'+
+      '<div class="big">'+R.right+'/'+R.q.length+'</div>'+
+      '<p style="color:#CFC6B8">Come back tomorrow — the words you missed are already scheduled.</p>'+
+      '<div class="row" style="justify-content:center;margin-top:22px"><button class="btn" id="hm">Back to sets</button></div></div></div>';
+    document.getElementById('hm').addEventListener('click', function(){ go('home'); });
+    refreshBadge(); return;
+  }
+  var s = setOf(w._set) || {color:'blue'};
+  var o = shuffle([w.vi].concat(distractors(w,'vi',3)));
+  V.innerHTML = '<div class="stage c-'+s.color+'"><div class="crumb">'+
+    '<span class="lab">Review · '+(R.i+1)+' of '+R.q.length+'</span>'+
+    '<span class="progline"><i style="width:'+Math.round(R.i/R.q.length*100)+'%"></i></span></div>'+
+    '<div class="qbox"><div class="qtype">Do you still remember?</div>'+
+    '<h2 class="qprompt">'+esc(w.w)+' <button class="ico" data-say="'+esc(w.w)+'">▶</button></h2>'+
+    '<p class="qhint">Chọn nghĩa đúng</p><div class="opts">'+
+    o.map(function(x){ return '<button class="opt vi" data-ok="'+(x===w.vi?1:0)+'">'+esc(x)+'</button>'; }).join('')+
+    '</div><div class="fb" id="fb"></div></div></div>';
+  bindSay();
+  document.querySelectorAll('.opt').forEach(function(b){
+    b.addEventListener('click', function(){
+      if(document.querySelector('.opt.locked')) return;
+      var ok = b.dataset.ok === '1';
+      document.querySelectorAll('.opt').forEach(function(x){ x.classList.add('locked'); if(x.dataset.ok === '1') x.classList.add('right'); });
+      if(!ok) b.classList.add('wrong');
+      if(ok) R.right++;
+      grade(w.w, ok ? 1 : 0);
+      var fb = document.getElementById('fb');
+      fb.className = 'fb on';
+      fb.innerHTML = '<b>'+esc(w.w)+'</b> — '+esc(w.e)+' <button class="ico sm" data-say="'+esc(w.e)+'">▶</button><br><span class="vi">'+esc(w.ev)+'</span>';
+      bindSay();
+      fb.parentNode.appendChild(el('<div class="row" style="margin-top:18px"><button class="btn solid" id="nx">Next →</button></div>'));
+      document.getElementById('nx').addEventListener('click', function(){ R.i++; renderReview(); });
+    });
+  });
+}
+
+/* ============ big test ============ */
+var T = null;
+function viewTest(){
+  var learned = WORDS.filter(function(w){ return isSeen(w.w); });
+  if(learned.length < 4){
+    V.innerHTML = '<h2 class="big">Study a few words first</h2>'+
+      '<p class="sub">This test only uses words you have already opened. Finish one set and come back.</p>'+
+      '<button class="btn solid" id="ts">Go to the sets</button>';
+    document.getElementById('ts').addEventListener('click', function(){ go('home'); });
+    return;
+  }
+  V.innerHTML = '<h2 class="big">Test yourself</h2>'+
+    '<p class="sub">Mixed questions · no help until the end</p>'+
+    '<div class="panel"><span class="lab">Which words?</span>'+
+      '<select id="sc" style="margin-top:10px">'+
+        '<option value="all">Everything I have studied ('+learned.length+')</option>'+
+        '<option value="weak">Only my weak words</option>'+
+        '<option value="due">Only what is due today</option>'+
+        SETS.map(function(s){
+          var n = s.words.filter(function(w){ return isSeen(w.w); }).length;
+          return n ? '<option value="'+s.id+'">'+esc(s.title)+' ('+n+')</option>' : '';
+        }).join('')+
+      '</select></div>'+
+    '<div class="panel"><span class="lab">How many questions?</span>'+
+      '<div class="row" style="margin-top:14px" id="lr">'+
+        [10,20,30,999].map(function(n){ return '<button class="btn sm" data-len="'+n+'">'+(n>900?'All':n)+'</button>'; }).join('')+
+      '</div><p class="sub" id="ln" style="margin-top:14px">Selected: 10 questions.</p></div>'+
+    '<button class="btn solid" id="st">Start the test</button>';
+  var len = 10;
+  document.querySelectorAll('#lr .btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('#lr .btn').forEach(function(x){ x.style.background=''; x.style.color=''; });
+      b.style.background = 'var(--ink)'; b.style.color = 'var(--paper)';
+      len = +b.dataset.len;
+      document.getElementById('ln').textContent = 'Selected: ' + (len > 900 ? 'every word in this group' : len + ' questions') + '.';
+    });
+  });
+  document.getElementById('st').addEventListener('click', function(){
+    var v = document.getElementById('sc').value, pool;
+    if(v === 'all') pool = learned;
+    else if(v === 'due') pool = dueList();
+    else if(v === 'weak') pool = WORDS.filter(function(w){ var r = rec(w.w); return r && r.lv <= 2; });
+    else { var s = setOf(v); pool = s ? s.words.filter(function(w){ return isSeen(w.w); }) : []; }
+    if(pool.length < 4){ document.getElementById('ln').textContent = 'That group is too small. Choose a wider one.'; return; }
+    startTest(pool, len);
+  });
+}
+function startTest(pool, len){
+  var picked = shuffle(pool).slice(0, Math.min(len, pool.length));
+  var types = ['mean','rev','listen','spell','gap'];
+  T = {q: shuffle(picked.map(function(w,i){ return {w:w, t:types[i%5]}; })), i:0, log:[]};
+  renderTestQ();
+}
+function gapSentence(w){
+  var re = new RegExp(w.w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'[a-z]*','i');
+  return w.e.replace(re, '_____');
+}
+function renderTestQ(){
+  var q = T.q[T.i];
+  if(!q) return renderTestReport();
+  var w = q.w, head, body, o = [], viOpts = false;
+  if(q.t === 'mean'){
+    head = '<h2 class="qprompt">'+esc(w.w)+'</h2><p class="qhint">What does it mean?</p>';
+    o = shuffle([w.vi].concat(distractors(w,'vi',3))); viOpts = true;
+  } else if(q.t === 'rev'){
+    head = '<h2 class="qprompt vi">'+esc(w.vi)+'</h2><p class="qhint">Which English word is this?</p>';
+    o = shuffle([w.w].concat(distractors(w,'w',3)));
+  } else if(q.t === 'listen'){
+    head = '<h2 class="qprompt">Listen</h2><p class="qhint">'+
+      '<button class="ico" data-say="'+esc(w.e)+'">▶ PLAY</button> '+
+      '<button class="ico" data-say="'+esc(w.e)+'" data-slow="1">SLOW</button><br>Which word is in the sentence?</p>';
+    o = shuffle([w.w].concat(distractors(w,'w',3)));
+  } else if(q.t === 'gap'){
+    head = '<h2 class="qprompt" style="font-size:26px">'+esc(gapSentence(w))+'</h2><p class="qhint">Which word is missing?</p>';
+    o = shuffle([w.w].concat(distractors(w,'w',3)));
+  } else {
+    head = '<h2 class="qprompt vi">'+esc(w.vi)+'</h2><p class="qhint">Write the English word — spelling counts.</p>';
+  }
+  body = (q.t === 'spell')
+    ? '<input class="typein" id="tIn" autocomplete="off" spellcheck="false" placeholder="…">'+
+      '<div class="row" style="margin-top:14px"><button class="btn solid" id="an">Answer</button>'+
+      '<button class="btn sm" id="sk">Skip</button></div>'
+    : '<div class="opts">'+o.map(function(x){ return '<button class="opt'+(viOpts?' vi':'')+'" data-v="'+esc(x)+'">'+esc(x)+'</button>'; }).join('')+'</div>';
+  V.innerHTML = '<div class="stage c-'+(setOf(w._set)||{color:'blue'}).color+'"><div class="crumb">'+
+    '<button class="btn sm" id="qt">✕ Quit</button><span class="lab">Question '+(T.i+1)+' of '+T.q.length+'</span>'+
+    '<span class="progline"><i style="width:'+Math.round(T.i/T.q.length*100)+'%"></i></span></div>'+
+    '<div class="qbox"><div class="qtype">Test · answers at the end</div>'+head+body+'</div></div>';
+  bindSay();
+  document.getElementById('qt').addEventListener('click', function(){ go('home'); });
+  function answer(given, ok){ T.log.push({w:w, given:given, ok:ok}); grade(w.w, ok?1:0); T.i++; renderTestQ(); }
+  document.querySelectorAll('.opt').forEach(function(b){
+    b.addEventListener('click', function(){
+      var g = b.dataset.v, correct = (q.t === 'mean') ? w.vi : w.w;
+      answer(g, g === correct);
+    });
+  });
+  var an = document.getElementById('an');
+  if(an){
+    var inp = document.getElementById('tIn'); inp.focus();
+    var j = function(){ var v = inp.value.trim(); answer(v || '—', v.toLowerCase() === w.w.toLowerCase()); };
+    an.addEventListener('click', j);
+    document.getElementById('sk').addEventListener('click', function(){ answer('—', false); });
+    inp.addEventListener('keydown', function(e){ if(e.key === 'Enter') j(); });
+  }
+}
+function renderTestReport(){
+  var right = T.log.filter(function(l){ return l.ok; }).length;
+  var pct = Math.round(right/T.log.length*100);
+  var missed = T.log.filter(function(l){ return !l.ok; });
+  var verdict = pct >= 90 ? 'These words are yours now. Move to a new set.'
+    : pct >= 70 ? 'Good. Test the missed words again tomorrow.'
+    : pct >= 45 ? 'Halfway. Study the missed words before adding new ones.'
+    : 'Too early. Go back to the sets and study them once more.';
+  V.innerHTML = '<div class="stage"><div class="done-note">'+
+    '<span class="lab" style="color:#9C948A">Test result</span><div class="big">'+pct+'%</div>'+
+    '<p style="color:#CFC6B8;margin:0 auto;max-width:46ch">'+right+' of '+T.log.length+' correct. '+esc(verdict)+'</p>'+
+    '<div class="row" style="justify-content:center;margin-top:24px">'+
+      (missed.length ? '<button class="btn" id="rm">Test the missed words</button>' : '')+
+      '<button class="btn" id="nt">New test</button><button class="btn" id="hm">Back to sets</button></div></div>'+
+    (missed.length ? '<h2 class="big" style="margin-top:44px;font-size:30px">Study these again</h2>'+
+      '<p class="sub">'+missed.length+' words · back at the start of your review queue</p>'+
+      missed.map(function(l){
+        return '<div class="brow"><div class="bw">'+esc(l.w.w)+' <button class="ico sm" data-say="'+esc(l.w.w)+'">▶</button></div>'+
+          '<div class="bd">'+esc(l.w.e)+' <button class="ico sm" data-say="'+esc(l.w.e)+'">▶</button>'+
+          '<br><span class="lab">you answered: '+esc(l.given)+'</span></div>'+
+          '<div class="vt">'+esc(l.w.vi)+'</div></div>';
+      }).join('')
+      : '<p class="sub" style="margin-top:34px;text-align:center">Nothing missed.</p>')+'</div>';
+  bindSay();
+  document.getElementById('nt').addEventListener('click', function(){ go('test'); });
+  document.getElementById('hm').addEventListener('click', function(){ go('home'); });
+  var rm = document.getElementById('rm');
+  if(rm) rm.addEventListener('click', function(){
+    var seen = {}, pool = [];
+    missed.forEach(function(l){ if(!seen[l.w.w]){ seen[l.w.w] = 1; pool.push(l.w); } });
+    while(pool.length < 4){
+      var x = shuffle(WORDS.filter(function(y){ return isSeen(y.w) && !seen[y.w]; }))[0];
+      if(!x) break; seen[x.w] = 1; pool.push(x);
+    }
+    startTest(pool, pool.length);
+  });
+  refreshBadge();
+}
+
+/* ============ browse ============ */
+function viewBrowse(){
+  V.innerHTML = '<h2 class="big">All words</h2>'+
+    '<p class="sub">'+WORDS.length+' words · tap ▶ to hear</p>'+
+    '<input class="search" id="sq" placeholder="Search in English or Vietnamese…"><div id="list"></div>';
+  var list = document.getElementById('list');
+  function draw(f){
+    f = (f||'').toLowerCase().trim();
+    list.innerHTML = '';
+    WORDS.filter(function(w){ return !f || (w.w+' '+w.d+' '+w.vi+' '+w.e+' '+w.ev).toLowerCase().indexOf(f) > -1; })
+      .forEach(function(w){
+        var s = setOf(w._set);
+        list.appendChild(el('<div class="brow">'+
+          '<div class="bw">'+esc(w.w)+' <button class="ico sm" data-say="'+esc(w.w)+'">▶</button></div>'+
+          '<div class="bd">'+esc(w.d)+'<br><span class="lab">'+esc(s?s.title:'')+'</span></div>'+
+          '<div class="vt">'+esc(w.vi)+'</div></div>'));
+      });
+    bindSay();
+  }
+  draw('');
+  document.getElementById('sq').addEventListener('input', function(){ draw(this.value); });
+}
+
+/* ============ settings ============ */
+function fillVoices(sel){
+  var list = voices().slice().sort(function(a,b){ return scoreVoice(b)-scoreVoice(a); });
+  sel.innerHTML = '<option value="">Best available (recommended)</option>'+
+    list.map(function(v){ return '<option value="'+esc(v.name)+'"'+(VS.voice===v.name?' selected':'')+'>'+esc(v.name)+' — '+esc(v.lang)+'</option>'; }).join('');
+}
+function viewSettings(){
+  V.innerHTML = '<h2 class="big">Voice</h2>'+
+    '<p class="sub">Nothing ever speaks by itself — sound only plays when you press ▶</p>'+
+    '<div class="panel"><span class="lab">Voice</span><select id="voiceSel" style="margin-top:10px"></select>'+
+      '<div class="row" style="margin-top:16px"><button class="btn solid" id="tv">Test this voice</button></div></div>'+
+    '<div class="panel"><span class="lab">Speaking speed — <b id="rv">'+VS.rate.toFixed(2)+'</b></span>'+
+      '<input class="slider" type="range" min="0.6" max="1.2" step="0.02" value="'+VS.rate+'" id="rt" style="margin-top:14px">'+
+      '<div class="row" style="margin-top:14px"><button class="btn sm" id="ts2">Hear this speed</button></div></div>'+
+    '<div class="panel"><span class="lab">Progress</span>'+
+      '<p style="margin:10px 0 12px;font-size:16px">Your review schedule is kept in this browser only.</p>'+
+      '<button class="btn" id="rs">Erase my progress</button></div>';
+  var sel = document.getElementById('voiceSel');
+  fillVoices(sel);
+  sel.addEventListener('change', function(){ VS.voice = sel.value; store('voice', VS.voice); });
+  document.getElementById('tv').addEventListener('click', function(){ speak('Hello Kelly. This is the voice you chose.'); });
+  var r = document.getElementById('rt');
+  r.addEventListener('input', function(){
+    VS.rate = parseFloat(r.value); store('rate', VS.rate);
+    document.getElementById('rv').textContent = VS.rate.toFixed(2);
+  });
+  document.getElementById('ts2').addEventListener('click', function(){ speak('I read in the morning and I write in the evening.'); });
+  document.getElementById('rs').addEventListener('click', function(){ SRS = {}; saveSRS(); refreshBadge(); this.textContent = 'Progress erased'; });
+}
+
+/* ============ tap a word → Vietnamese ============ */
+function stems(word){
+  var w = word.toLowerCase().replace(/[^a-z']/g,''), out = [w];
+  if(/ies$/.test(w)) out.push(w.replace(/ies$/,'y'));
+  if(/es$/.test(w)) out.push(w.slice(0,-2));
+  if(/s$/.test(w)) out.push(w.slice(0,-1));
+  if(/ed$/.test(w)){ out.push(w.slice(0,-2), w.slice(0,-1)); }
+  if(/ing$/.test(w)){ var b = w.slice(0,-3); out.push(b, b+'e'); if(/([bdgklmnprt])\1$/.test(b)) out.push(b.slice(0,-1)); }
+  if(/ly$/.test(w)) out.push(w.slice(0,-2));
+  if(w === 'teeth') out.push('tooth');
+  if(w === 'feet') out.push('foot');
+  if(w === 'children') out.push('child');
+  return out;
+}
+var pop = null;
+function closePop(){ if(pop){ pop.remove(); pop = null; } }
+function openPop(x, y, word, e){
+  closePop();
+  var body = e
+    ? '<div class="pop-w">'+esc(e.w)+' <button class="ico sm" data-say="'+esc(e.w)+'">▶</button></div>'+
+      '<div class="pop-d">'+esc(e.d)+'</div>'+
+      '<div class="trrow"><button class="trbtn" data-pt="w">Tiếng Việt</button></div>'+
+      '<div class="pop-tr" id="pt-w">'+esc(e.vi)+'</div>'+
+      '<div class="pop-ex">'+esc(e.e)+' <button class="ico sm" data-say="'+esc(e.e)+'">▶</button>'+
+        '<div class="trrow"><button class="trbtn" data-pt="e">Tiếng Việt</button></div>'+
+        '<div class="pop-tr" id="pt-e">'+esc(e.ev)+'</div></div>'
+    : '<div class="pop-w">'+esc(word)+' <button class="ico sm" data-say="'+esc(word)+'">▶</button></div>'+
+      '<div class="pop-d">This word is not in your list yet, so there is no translation for it. You can still hear it.</div>';
+  pop = el('<div class="pop"><button class="pop-x">✕</button>'+body+'</div>');
+  document.body.appendChild(pop);
+  var r = pop.getBoundingClientRect();
+  pop.style.left = Math.min(Math.max(10, x - r.width/2), window.innerWidth - r.width - 10)+'px';
+  pop.style.top = (y + 16 + r.height > window.innerHeight - 10 ? Math.max(10, y - r.height - 18) : y + 16)+'px';
+  pop.querySelector('.pop-x').addEventListener('click', closePop);
+  pop.querySelectorAll('[data-pt]').forEach(function(b){
+    b.addEventListener('click', function(ev){
+      ev.stopPropagation();
+      var box = pop.querySelector('#pt-'+b.dataset.pt);
+      b.classList.toggle('on', box.classList.toggle('on'));
+    });
+  });
+  pop.querySelectorAll('[data-say]').forEach(function(b){
+    b.addEventListener('click', function(ev){ ev.stopPropagation(); speak(b.dataset.say); });
+  });
+}
+function wordAtPoint(e){
+  var range = null;
+  if(document.caretRangeFromPoint) range = document.caretRangeFromPoint(e.clientX, e.clientY);
+  else if(document.caretPositionFromPoint){
+    var p = document.caretPositionFromPoint(e.clientX, e.clientY);
+    if(p){ range = document.createRange(); range.setStart(p.offsetNode, p.offset); }
+  }
+  if(!range || !range.startContainer || range.startContainer.nodeType !== 3) return null;
+  var t = range.startContainer.textContent, i = range.startOffset;
+  if(!t || !t.trim()) return null;
+  var isW = function(c){ return /[A-Za-z']/.test(c); };
+  if(i >= t.length) i = t.length - 1;
+  if(!isW(t[i]) && i > 0 && isW(t[i-1])) i--;
+  if(!isW(t[i])) return null;
+  var a = i, b = i;
+  while(a > 0 && isW(t[a-1])) a--;
+  while(b < t.length-1 && isW(t[b+1])) b++;
+  return t.slice(a, b+1);
+}
+document.addEventListener('click', function(e){
+  if(pop && pop.contains(e.target)) return;
+  closePop();
+  if(e.target.closest('button, input, select, textarea, a, label, .tab, .rate, .opt, #welcome')) return;
+  if(window.getSelection && String(window.getSelection()).length > 1) return;
+  var word = wordAtPoint(e);
+  if(!word || word.length < 2) return;
+  var hit = null;
+  stems(word).some(function(s){ if(DICT[s]){ hit = DICT[s]; return true; } return false; });
+  openPop(e.clientX, e.clientY, word, hit);
+});
+document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closePop(); });
+window.addEventListener('scroll', closePop, {passive:true});
+
+/* ============ boot ============ */
+refreshBadge();
+go('home');
+</script>
+</body>
+</html>
